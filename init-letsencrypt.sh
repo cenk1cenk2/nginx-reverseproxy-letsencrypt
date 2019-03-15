@@ -1,28 +1,31 @@
 #!/bin/bash
 
-domains=( ev.cenk1cenk2.com backup.ev.cenk1cenk2.com srcs.ev.cenk1cenk2.com )
+source .env
+IFS=' '; set -f
+echo "Running the script for $DOMAINS."
+domains=($DOMAINS)
 rsa_key_size=4096
-data_path="./config/certs"
+data_path="/certs"
 email="cenk1cenk2cenk3@gmail.com" #Adding a valid address is strongly recommended 
 staging=0 #Set to 1 if you're just testing your setup to avoid hitting request limits
 
 # echo "### Preparing directories in $data_path ..."
 # rm -Rf "$data_path"
 # mkdir -p "$data_path/www"
-# mkdir -p "$data_path/conf/live/$domains"
+# mkdir -p "$data_path/live/$domains"
 
-if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
+if [ ! -e "$data_path/options-ssl-nginx.conf" ] || [ ! -e "$data_path/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
-  mkdir -p "$data_path/conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf > "$data_path/conf/options-ssl-nginx.conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem > "$data_path/conf/ssl-dhparams.pem"
+  mkdir -p "$data_path"
+  cp ./build/options-ssl-nginx.conf $data_path/options-ssl-nginx.conf
+  cp ./build/ssl-dhparams.pem $data_path/ssl-dhparams.pem
   echo
 fi
 
 for domain in "${domains[@]}"; do
   echo "### Creating dummy certificate for $domain ..."
   path="/etc/letsencrypt/live/$domain"
-  mkdir -p "$data_path/conf/live/$domain"
+  mkdir -p "$data_path/live/$domain"
   docker-compose run --rm --entrypoint "\
     openssl req -x509 -nodes -newkey rsa:1024 -days 1\
       -keyout '$path/privkey.pem' \

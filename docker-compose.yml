@@ -4,13 +4,11 @@ services:
     image: nginx:latest
     container_name: nginx-reverseproxy
     volumes:
-      - ./config/nginx.conf:/etc/nginx/nginx.conf
-      - ./config/services:/etc/nginx/services
-      - ./config/backends:/etc/nginx/backends
-      - ./config/subdomains:/etc/nginx/subdomains
-      - ./config/certs/conf:/etc/letsencrypt
-      - ./config/certs/www:/var/www/certbot
-      - ./config/logs:/var/log/nginx
+      - ./cfg/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./cfg/nginx/inc-cfg:/etc/nginx/inc-cfg
+      - /certs:/etc/letsencrypt
+      - ./cfg/certbot/www-challenge:/var/www/certbot
+      - ./logs/nginx:/var/log/nginx
     ports:
       - 80:80
       - 443:443
@@ -20,8 +18,8 @@ services:
     image: certbot/certbot
     container_name: nginx-reverseproxy-certbot
     volumes:
-    - ./config/certs/conf:/etc/letsencrypt
-    - ./config/certs/www:/var/www/certbot
+    - /certs:/etc/letsencrypt
+    - ./cfg/certbot/www-challenge:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 48h & wait $${!}; done;'"
     network_mode: "bridge"
     privileged: true
