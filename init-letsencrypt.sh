@@ -6,7 +6,7 @@ echo "Running the script for $DOMAINS."
 domains=($DOMAINS)
 rsa_key_size=4096
 data_path="/certs"
-email="cenk1cenk2cenk3@gmail.com" #Adding a valid address is strongly recommended 
+email=$EMAIL #Adding a valid address is strongly recommended
 staging=0 #Set to 1 if you're just testing your setup to avoid hitting request limits
 
 # echo "### Preparing directories in $data_path ..."
