@@ -35,6 +35,7 @@ The root folder in the configuration must match with bind mounts in NGINX and CE
 ## Changelog
 * v2.5, 20200122
   * Added `force_renewal` and `ask_renewal` flags for manual override to renewing certificates to `init-letsencrypt`.
+  * Moved `init-letsencrypt` variables to `.env` file.
 * v2.4, 20191224
   * Optimized for public version, re-init github.
 * v2.3, 20190315
