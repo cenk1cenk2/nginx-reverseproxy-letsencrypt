@@ -9,6 +9,16 @@ ENVFILECONTENTS=(
   "DOMAINS=\"\""
   "# EMAIL ADDRESS FOR LETSENCRYPT CERTIFICATES"
   "EMAIL="
+  "# Add the directory for certificates that is shared among nginx and le"
+  "CERTS_DATA_PATH="
+  "# RSA Key Size Requested (Default: 4096)"
+  "RSA_KEY_SIZE="
+  "# Set to 1 if you're just testing your setup to avoid hitting request limits"
+  "LE_STAGING=0"
+  "# Set to 1 if you want to obtain certificate for every domain again eventhough they exist"
+  "LE_FORCE_RENEWAL=0"
+  "# Set to 1 if you want to manually configure which domains to process with user prompt"
+  "LE_ASK_RENEWAL=0"
   )
 
 ## Script

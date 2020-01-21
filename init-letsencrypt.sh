@@ -4,12 +4,12 @@ source .env
 IFS=' '; set -f
 echo "Running the script for $DOMAINS."
 domains=($DOMAINS)
-rsa_key_size=4096
-data_path="/certs"
+rsa_key_size=(${RSA_KEY_SIZE:-4096})
+data_path=($CERTS_DATA_PATH)
 email=$EMAIL #Adding a valid address is strongly recommended
-staging=0 #Set to 1 if you're just testing your setup to avoid hitting request limits
-force_renewal=0 # Set to 1 if you want to obtain certificate for every domain again eventhough they exist
-ask_renewal=0 # Set to 1 if you want to manually configure which domains to process
+staging=(${LE_STAGING:-0}) #Set to 1 if you're just testing your setup to avoid hitting request limits
+force_renewal=(${LE_FORCE_RENEWAL:-0}) # Set to 1 if you want to obtain certificate for every domain again eventhough they exist
+ask_renewal=(${LE_ASK_RENEWAL:-0}) # Set to 1 if you want to manually configure which domains to process
 
 if [ ! -e "$data_path/options-ssl-nginx.conf" ] || [ ! -e "$data_path/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
