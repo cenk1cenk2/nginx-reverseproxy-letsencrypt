@@ -4,7 +4,7 @@ source .env
 IFS=' '; set -f
 echo "Running the script for $DOMAINS."
 domains=($DOMAINS)
-rsa_key_size=(${RSA_KEY_SIZE:-4096})
+rsa_key_size=${RSA_KEY_SIZE:-4096}
 data_path=$CERTS_DATA_PATH
 email=$EMAIL #Adding a valid address is strongly recommended
 staging=${LE_STAGING:-0} #Set to 1 if you're just testing your setup to avoid hitting request limits
