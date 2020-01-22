@@ -53,7 +53,7 @@ docker-compose up -d nginx-reverseproxy
 echo
 
 for domain in "${domains[@]}"; do
-  if [[ $ask_renewal != "0" ]]; then read -p "### Do you want to force renewal for $domain [y/N]: " renewal_override; fi
+  if [[ ! -f "$data_path/live/$domain/.dummy" && $ask_renewal != "0" ]]; then read -p "### Do you want to force renewal for $domain [y/N]: " renewal_override; fi
   if [[ -f "$data_path/live/$domain/.dummy" || ${renewal_override:-"n"} = "y" ]]; then
     echo "### Deleting certificates for $domain ..."
     docker-compose run --rm --entrypoint "\
