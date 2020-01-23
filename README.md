@@ -1,7 +1,7 @@
 ```
 name:         | nginx-reverseproxy+letsencrypt
 compiler:     | docker-compose
-version:      | v2.5, 20200122
+version:      | v2.5.2, 20200124
 ```
 
 ## Description:
