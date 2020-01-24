@@ -5,8 +5,10 @@ echo "init-env.sh@bash: v2.0, 20190321"
 # Write down the data required in .env file here for initiation.
 ENVFILENAME=.env
 ENVFILECONTENTS=(
-  "# SPLIT DOMAINS AND SUBDOMAINS WITH SPACE IN BETWEEN"
+  "# SPLIT DOMAINS WITH SPACE IN BETWEEN"
   "DOMAINS=\"\""
+  "# SPLIT SUBDOMAINS WITH SPACE IN BETWEEN, it must match the top level domains"
+  "SUBDOMAIN=\"\""
   "# EMAIL ADDRESS FOR LETSENCRYPT CERTIFICATES"
   "EMAIL="
   "# Add the directory for certificates that is shared among nginx and le"
@@ -22,5 +24,5 @@ ENVFILECONTENTS=(
   )
 
 ## Script
-echo "Initiating ${ENVFILENAME} file."; if [[ ! -f ${ENVFILENAME} ]] || ( echo -n ".env file already initiated. You want to override? [ y/N ]: " && read -r OVERRIDE && echo ${OVERRIDE::1} | grep -iqF "y" ); then echo "Will rewrite the .env file with the default one."; > ${ENVFILENAME} && for i in "${ENVFILECONTENTS[@]}"; do echo $i >> ${ENVFILENAME}; done; echo "Opening enviroment file in nano editor."; nano ${ENVFILENAME}; echo "All done."; else echo "File already exists with no overwrite permissiong given."; echo "Not doing anything."; fi
+echo "Initiating ${ENVFILENAME} file."; if [[ ! -f ${ENVFILENAME} ]] || ( echo -n ".env file already initiated. You want to override? [ y/N ]: " && read -r OVERRIDE && echo ${OVERRIDE::1} | grep -iqF "y" ); then echo "Will rewrite the .env file with the default one."; > ${ENVFILENAME} && for i in "${ENVFILECONTENTS[@]}"; do echo $i >> ${ENVFILENAME}; done; echo "Opening enviroment file in nano editor."; nano ${ENVFILENAME}; echo "All done."; else echo "File already exists with no overwrite permission given."; echo "Not doing anything."; fi
 

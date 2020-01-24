@@ -1,7 +1,7 @@
 ```
 name:         | nginx-reverseproxy+letsencrypt
 compiler:     | docker-compose
-version:      | v2.5.2, 20200124
+version:      | v2.6, 20200124
 ```
 
 ## Description:
@@ -33,6 +33,8 @@ The root folder in the configuration must match with bind mounts in NGINX and CE
 > After the parameters are provided inside .env file and initial certificates are obtained through challenge, Docker compose stack can be run.
 
 ## Changelog
+* v2.6, 20200124
+  * Combined the certificates under the domain names. So it will issue a generic certificate with top level domain including all the subdomains and itself in the DNS aliases.
 * v2.5, 20200122
   * Added `force_renewal` and `ask_renewal` flags for manual override to renewing certificates to `init-letsencrypt`.
   * Moved `init-letsencrypt` variables to `.env` file.
